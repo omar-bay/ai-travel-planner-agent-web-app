@@ -1,0 +1,96 @@
+# =========================================
+# Global
+# =========================================
+# OS
+.DS_Store
+Thumbs.db
+
+# Environments & secrets
+.env
+*.env
+*.secret
+/secrets/
+
+# Logs & temp
+*.log
+logs/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swo
+*.bak
+*.tmp
+.cache/
+*.sqlite3
+
+# IDEs & editors
+.vscode/
+.idea/
+*.iml
+
+# =========================================
+# Python / FastAPI backend
+# =========================================
+backend/__pycache__/
+backend/**/*.pyc
+backend/.pytest_cache/
+backend/.mypy_cache/
+backend/.ruff_cache/
+backend/venv/
+backend/.venv/
+backend/.coverage
+backend/htmlcov/
+backend/dist/
+backend/build/
+backend/.eggs/
+backend/*.egg-info/
+backend/.pytest_cache/
+backend/.ipynb_checkpoints/
+
+# SQLite or test databases
+*.db
+*.sqlite
+*.sqlite3
+
+# =========================================
+# Node / React frontend
+# =========================================
+frontend/node_modules/
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+frontend/build/
+frontend/dist/
+frontend/.parcel-cache/
+frontend/.next/
+frontend/out/
+frontend/yarn-error.log
+frontend/npm-debug.log*
+frontend/pnpm-lock.yaml
+frontend/package-lock.json
+
+# =========================================
+# Docker / Containers
+# =========================================
+docker-compose.override.yml
+*.pid
+*.sock
+*.tar
+*.gz
+
+# =========================================
+# Misc
+# =========================================
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# Coverage / test reports
+coverage.xml
+htmlcov/
+.tox/
+.pytest_cache/
+pytestdebug.log
