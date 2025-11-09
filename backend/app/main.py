@@ -7,6 +7,7 @@ from .routers import trips as trips_router
 from .routers import weather as weather_router
 from .routers import rag as rag_router
 from .routers import agent as agent_router
+from .routers import cities as cities_router
 
 app = FastAPI(title="AI Travel Planner API")
 
@@ -27,6 +28,7 @@ app.include_router(trips_router.router)
 app.include_router(weather_router.router)
 app.include_router(rag_router.router)
 app.include_router(agent_router.router)
+app.include_router(cities_router.router)
 
 if __name__ == "__main__":
     uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
