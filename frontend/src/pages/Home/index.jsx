@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   Box, Card, CardActionArea, CardContent, CardMedia, Stack, Typography,
   Button, Dialog, DialogTitle, DialogContent, DialogActions, Chip,
-  LinearProgress, Alert, Snackbar, Divider
+  LinearProgress, Alert, Snackbar, Divider, TextField
 } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -138,6 +138,7 @@ export default function Home() {
 
   const [open, setOpen] = useState(false);
   const [toast, setToast] = useState({ open: false, message: "", severity: "success" });
+  const [freeQuestion, setFreeQuestion] = useState("");
 
   useEffect(() => {
     if (askData) setOpen(true);
@@ -159,6 +160,17 @@ export default function Home() {
       days: 3,
     });
   };
+
+    const handleAskFreeQuestion = async () => {
+    const q = freeQuestion.trim();
+    if (!q) return;
+    clearAsk();
+    setOpen(true);                // open popup immediately
+    await ask({
+        question: q,                // only question, no city
+        // days: optional; include if you want: days: 3
+    });
+    };
 
   const handleSave = async () => {
     if (!askData?.city) return;
@@ -196,6 +208,34 @@ export default function Home() {
       )}
 
       <CityCarousel items={carouselItems} onPick={handlePickCity} />
+
+        {/* Free question input */}
+        <Stack
+        direction={{ xs: "column", sm: "row" }}
+        spacing={1.5}
+        sx={{ mt: 2 }}
+        >
+        <TextField
+            fullWidth
+            label="Ask any travel question"
+            placeholder="e.g., Weekend in Lisbon under $300 with great coffee spots"
+            value={freeQuestion}
+            onChange={(e) => setFreeQuestion(e.target.value)}
+            onKeyDown={(e) => {
+            if (e.key === "Enter" && freeQuestion.trim() && !askLoading) {
+                handleAskFreeQuestion();
+            }
+            }}
+        />
+        <Button
+            variant="contained"
+            onClick={handleAskFreeQuestion}
+            disabled={!freeQuestion.trim() || askLoading}
+            sx={{ flexShrink: 0 }}
+        >
+            {askLoading ? "Asking…" : "Ask"}
+        </Button>
+        </Stack>
 
       {/* Response Modal */}
       <Dialog open={open} onClose={() => setOpen(false)} maxWidth="md" fullWidth>
