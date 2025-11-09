@@ -9,8 +9,22 @@ import Avatar from "@mui/material/Avatar";
 import Container from "@mui/material/Container";
 import PersonIcon from "@mui/icons-material/Person";
 import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { clearToken } from "../utils/auth";
 
 export default function Layout() {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    clearToken();
+    navigate("/");
+  };
+
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "background.default" }}>
       <AppBar position="static" color="primary" elevation={1}>
@@ -26,12 +40,7 @@ export default function Layout() {
             </Typography>
             {/* Nav */}
             <Box sx={{ display: { xs: "none", sm: "flex" }, gap: 1 }}>
-              <Button
-                component={NavLink}
-                to="/"
-                color="inherit"
-                sx={({ isActive }) => ({ opacity: isActive ? 1 : 0.7 })}
-              >
+              <Button component={NavLink} to="/home" color="inherit" sx={({ isActive }) => ({ opacity: isActive ? 1 : 0.7 })}>
                 Home
               </Button>
               <Button
@@ -49,11 +58,14 @@ export default function Layout() {
             <Typography variant="body1" sx={{ display: { xs: "none", sm: "block" } }}>
               Omar
             </Typography>
-            <IconButton color="inherit">
+            <IconButton color="inherit" onClick={(e) => setAnchorEl(e.currentTarget)}>
               <Avatar sx={{ width: 32, height: 32 }}>
                 <PersonIcon fontSize="small" />
               </Avatar>
             </IconButton>
+            <Menu anchorEl={anchorEl} open={open} onClose={() => setAnchorEl(null)}>
+              <MenuItem onClick={() => { setAnchorEl(null); handleLogout(); }}>Logout</MenuItem>
+            </Menu>
           </Box>
         </Toolbar>
       </AppBar>

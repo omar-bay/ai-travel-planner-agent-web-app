@@ -1,18 +1,6 @@
-import axios from "axios";
+import { API } from "../lib/api";
 import { useCallback, useState } from "react";
 
-// You can refactor to share this instance across hooks later.
-const API = axios.create({
-  baseURL: "http://localhost:8000/api",
-  timeout: 30000,
-});
-API.interceptors.request.use((config) => {
-  config.headers = config.headers || {};
-  config.headers.Authorization =
-    "Bearer " +
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzYyODAzMzUxfQ.QfJ13R4hHMURN70t4ZPihkCj3LAAtlZEeYRal0RS55Y";
-  return config;
-});
 
 export function useSavedTrips() {
   const [data, setData] = useState(null);

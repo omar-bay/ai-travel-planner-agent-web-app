@@ -11,19 +11,25 @@ from ..schemas.user import UserOut
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
 
-@router.post("/signup", response_model=UserOut, status_code=201)
+@router.post("/signup", response_model=TokenResponse, status_code=201)
 async def signup(payload: SignupRequest, db: AsyncSession = Depends(get_db)):
     # Ensure email unique
     existing = await db.execute(select(User).where(User.email == payload.email))
     if existing.scalar_one_or_none():
         raise HTTPException(status_code=400, detail="Email already registered")
 
-
-    user = User(name=payload.name, email=payload.email, password_hash=get_password_hash(payload.password))
+    user = User(
+        name=payload.name,
+        email=payload.email,
+        password_hash=get_password_hash(payload.password),
+    )
     db.add(user)
     await db.commit()
     await db.refresh(user)
-    return user
+
+    # Return an access token
+    token = create_access_token(subject=str(user.id))
+    return TokenResponse(access_token=token)
 
 
 @router.post("/login", response_model=TokenResponse)

@@ -1,20 +1,6 @@
-import axios from "axios";
+import { API } from "../lib/api";
 import { useCallback, useEffect, useState } from "react";
 
-// ===== Axios instance with bearer token =====
-const API = axios.create({
-  baseURL: "http://localhost:8000/api", // adjust if your backend lives elsewhere
-  timeout: 30000,
-});
-
-API.interceptors.request.use((config) => {
-  // secure endpoints with Bearer
-  config.headers = config.headers || {};
-  config.headers.Authorization =
-    "Bearer " +
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzYyODAzMzUxfQ.QfJ13R4hHMURN70t4ZPihkCj3LAAtlZEeYRal0RS55Y";
-  return config;
-});
 
 // ===== Cities (title, city) from documents =====
 export function useCities() {
