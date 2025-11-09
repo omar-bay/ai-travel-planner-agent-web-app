@@ -4,6 +4,8 @@ import {
   Button, Dialog, DialogTitle, DialogContent, DialogActions, Chip,
   LinearProgress, Alert, Snackbar, Divider
 } from "@mui/material";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useCities, useAskAgent, useSaveTrip } from "../../hooks/Home";
 
 // a few fallback images (unsplash-like placeholders)
@@ -212,6 +214,18 @@ export default function Home() {
           </Button>
         </DialogActions>
       </Dialog>
+
+        {/* Loading Backdrop */}
+        <Backdrop
+        open={askLoading}                
+        sx={{
+            color: "#fff",
+            position: "fixed",         
+            zIndex: (t) => t.zIndex.modal + 2,
+        }}
+        >
+            <CircularProgress />
+        </Backdrop>
 
       {/* Toasts */}
       <Snackbar
