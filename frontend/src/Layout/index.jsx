@@ -22,7 +22,7 @@ export default function Layout() {
 
   const handleLogout = () => {
     clearToken();
-    navigate("/");
+    navigate("/auth");
   };
 
   return (
@@ -34,13 +34,13 @@ export default function Layout() {
               variant="h6"
               sx={{ fontWeight: 700, textDecoration: "none", color: "inherit" }}
               component={Link}
-              to="/"
+              to="/auth"
             >
               AI Travel
             </Typography>
             {/* Nav */}
             <Box sx={{ display: { xs: "none", sm: "flex" }, gap: 1 }}>
-              <Button component={NavLink} to="/home" color="inherit" sx={({ isActive }) => ({ opacity: isActive ? 1 : 0.7 })}>
+              <Button component={NavLink} to="/" color="inherit" sx={({ isActive }) => ({ opacity: isActive ? 1 : 0.7 })}>
                 Home
               </Button>
               <Button

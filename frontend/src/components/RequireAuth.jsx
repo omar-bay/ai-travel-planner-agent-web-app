@@ -5,7 +5,7 @@ export default function RequireAuth({ children }) {
   const location = useLocation();
   if (!isTokenValid()) {
     // send to root login; keep location for future redirect if desired
-    return <Navigate to="/" replace state={{ from: location }} />;
+    return <Navigate to="/auth" replace state={{ from: location }} />;
     }
   return children;
 }

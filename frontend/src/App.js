@@ -9,8 +9,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Login / Sign up at root */}
-        <Route path="/" element={<Auth />} />
+        {/* Login / Sign up */}
+        <Route path="/auth" element={<Auth />} />
 
         {/* Protected app routes */}
         <Route
@@ -20,13 +20,11 @@ export default function App() {
             </RequireAuth>
           }
         >
-          <Route path="/home" element={<Home />} />
+          <Route index element={<Home />} />
           <Route path="/trips" element={<Trips />} />
-          {/* optional redirect if user hits /app root */}
-          <Route path="/app" element={<Navigate to="/home" replace />} />
         </Route>
 
-        {/* Fallback: anything else -> login */}
+        {/* Fallback: anything else -> home */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

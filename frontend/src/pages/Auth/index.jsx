@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Card, CardContent, CardHeader, TextField, Button, Stack, Typography, Alert, Link } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { API } from "../../lib/api";
 import { setToken } from "../../utils/auth";
 
@@ -10,6 +10,8 @@ export default function Auth() {
   const [loading, setLoading] = useState(false);
   const [error, setErr] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const onChange = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
@@ -26,7 +28,7 @@ export default function Auth() {
         });
         const token = res.data?.access_token;
         if (token) setToken(token);
-        navigate("/home");
+        navigate(from, { replace: true });
       } else {
         const res = await API.post("/auth/login", {
           email: form.email.trim(),
@@ -34,7 +36,7 @@ export default function Auth() {
         });
         const token = res.data?.access_token;
         if (token) setToken(token);
-        navigate("/home");
+        navigate(from, { replace: true });
       }
     } catch (e) {
       setErr(e?.response?.data?.detail || "Authentication failed.");
