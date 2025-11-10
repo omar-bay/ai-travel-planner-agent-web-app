@@ -56,7 +56,7 @@ export default function Layout() {
 
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <Typography variant="body1" sx={{ display: { xs: "none", sm: "block" } }}>
-              Omar
+              User
             </Typography>
             <IconButton color="inherit" onClick={(e) => setAnchorEl(e.currentTarget)}>
               <Avatar sx={{ width: 32, height: 32 }}>
