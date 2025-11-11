@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str = Field(default="HS256")
     ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(default=60)
     OPENAI_API_KEY: str | None = None
+    JINA_API_KEY: str | None = None
 
 
     class Config:
@@ -20,3 +21,5 @@ settings = Settings()
 
 if settings.OPENAI_API_KEY:
     os.environ["OPENAI_API_KEY"] = settings.OPENAI_API_KEY
+if settings.JINA_API_KEY:
+    os.environ["JINA_API_KEY"] = settings.JINA_API_KEY
